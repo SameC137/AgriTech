@@ -9,6 +9,10 @@
             "type":"filters.crop",
             "polygon": ""
         },
+        {
+            "type":"filters.sample",
+            "radius": 2
+        },
         
         {
             "limits": "Classification![7:7]",
