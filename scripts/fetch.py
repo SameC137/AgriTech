@@ -27,7 +27,7 @@ class FetchData:
         pipeline[0]["filename"]=f"https://s3-us-west-2.amazonaws.com/usgs-lidar-public/{self.region}/ept.json"
         pipeline[0]["bounds"]=f"([{Xmin},{Xmax}],[{Ymin},{Ymax}])"
         pipeline[1]["polygon"]=str(boundary_repojected)
-        pipeline[5]["out_srs"]=crs
+        pipeline[4]["out_srs"]=crs
         # print( pipeline[0]["polygon"])
         
         pipe = pdal.Pipeline(json.dumps(pipeline))

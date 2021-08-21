@@ -9,15 +9,11 @@
             "type":"filters.crop",
             "polygon": ""
         },
-        {
-            "type":"filters.sample",
-            "radius": 2
-        },
         
         {
-            "limits": "Classification![7:7]",
+            "limits": "Classification[2:2]",
             "type": "filters.range",
-            "tag": "nonoise"
+            "tag": "classify"
         },
         {
             "assignment": "Classification[:]=0",
