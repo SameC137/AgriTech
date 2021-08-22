@@ -213,11 +213,11 @@ class FetchData:
                 # slopeMatrix
                 
                 mat=neighbors(mtop,indexY+1,indexX+1)
-                pointSlope=twi(mat,1)
+                ind=twi(mat,rasterRes)
                 # if indexX[0]>508:
                 #     print(pointSlope,indexY)
-                slopeMatrix[indexY,indexX]=np.rad2deg(pointSlope)
-                slopes.append(np.rad2deg(pointSlope))
+                slopeMatrix[indexY,indexX]=ind
+                slopes.append(ind)
         return slopeMatrix
 
 def slope(matrix, res):
@@ -244,15 +244,17 @@ def slope2(matrix,res):
 def twi(matrix,res):
     if not np.isnan(np.sum(matrix)):
         mat=np.array(matrix)
-        fx=(mat[1,0]-mat[1,2])/(2 *res)
-        fy=(mat[0,1]-mat[2,1])/(2*res)
-        slope=math.atan(((fx**2) + (fy**2))**0.5)
+        fx=(mat[2,0] - mat[2,2] +mat[1,0]-mat[1,2]+mat[0,0]-mat[0,2])/(6 *res)
+        fy=(mat[0,2]-mat[2,2]+mat[0,1]-mat[2,1]+mat[0,0]-mat[2,0])/(6*res)
+        slope=((fx**2) + (fy**2))**0.5
         arr=np.array(matrix)
-        contributingarea=len(arr[arr>arr[1,1]]) * res * res
+        contributingarea=len(arr[arr>arr[1,1]]) * (res**2)
+        if contributingarea==0:
+            return 0
         if abs(slope)==0.0:
-            slope=0.1
-        if slope>=0:
-            index=np.log(contributingarea/math.tan(slope))
+            return 0
+        index=np.log(contributingarea/slope)
+        
         return index
     else:
         return 0
