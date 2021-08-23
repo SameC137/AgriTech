@@ -23,7 +23,8 @@ import pyproj
 from shapely.ops import transform
 import numpy as np
 
-from CreateLogger import CreateLogger 
+from logger_util import CreateLogger 
+
 logger = CreateLogger('FetchData')
 logger = logger.get_default_logger()
 
@@ -308,7 +309,15 @@ class FetchData:
         return frame.to_crs(data.crs)
 
 def slope(matrix, res):
-    
+    """Generate Slope From Matrix
+
+    Args:
+        matrix (np.array): Numpy array representing our matrix
+        res (int): Resolution of the given matrix in
+
+    Returns:
+        float: Slope of the point in the middle of our matrix
+    """
     logger.info("Slope Generation Started")
     if not np.isnan(np.sum(matrix)):
         mat=np.nan_to_num(matrix)
@@ -326,7 +335,15 @@ def slope(matrix, res):
 
 
 def slope2(matrix,res):
-    
+    """Generate Slope From Matrix
+
+    Args:
+        matrix (np.array): Numpy array representing our matrix
+        res (int): Resolution of the given matrix in
+
+    Returns:
+        float: Slope of the point in the middle of our matrix
+    """
     logger.info("Slope Generation Started")
     if not np.isnan(np.sum(matrix)):
         mat=np.nan_to_num(matrix)
@@ -342,7 +359,15 @@ def slope2(matrix,res):
         return np.nan
 
 def twi(matrix,res):
-    
+    """Generate TWI for Matrix
+
+    Args:
+        matrix (array): Array Containing our point and its neighbors
+        res (int): Resolution of our matrix
+
+    Returns:
+        float: Return TWI for the center point of our matrix
+    """
     logger.info("TWI Calculation Started")
     if not np.isnan(np.sum(matrix)):
         mat=np.array(matrix)
@@ -365,6 +390,17 @@ def twi(matrix,res):
         return 0
 
 def neighbors(mat, row, col, radius=1):
+    """Generate neigbors matrix for point
+
+    Args:
+        mat (array): Matrix from which the neighbors will be extracted
+        row (int): Row of the value for which we are fining the neighbors
+        col (int): Col of of the value for which we are fining the neighbors    
+        radius (int, optional): Radius of neighbors. Defaults to 1.
+
+    Returns:
+        [array]: Returns a matrix of the neighbors with the value of the requred index in the middle 
+    """
     
     logger.info("Neighbors Calculation Started")
 
