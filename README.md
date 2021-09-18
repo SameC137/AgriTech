@@ -89,9 +89,13 @@ How to setup the module
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
+<b>Import</b>
+```
+from eleveation_3DEP.fetch import FetchData
+```
 <b>Getting Data</b>
 ```python
-data=FetchData(region).fetch_elevation(geometry,csr)
+FetchData(region).fetch_elevation(geometry,csr)
 ```
 returns a dataframe containeing elevation for points inside geometry
 |	|elevation	|geometry
